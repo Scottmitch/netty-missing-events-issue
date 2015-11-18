@@ -7,7 +7,6 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -50,8 +49,6 @@ public class NettyClient implements Closeable {
 
             @Override
             protected void initChannel(Channel ch) throws Exception {
-
-                ch.config().setOption(ChannelOption.AUTO_READ, false);
 
                 ch.pipeline() /**/
                 .addLast("logging", new LoggingHandler()) /**/
@@ -102,16 +99,6 @@ public class NettyClient implements Closeable {
     private class MyHandler extends ChannelInboundHandlerAdapter {
 
         private boolean read = false;
-
-        @Override
-        public void channelActive(ChannelHandlerContext ctx) throws Exception {
-            ctx.read();
-        }
-
-        @Override
-        public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-            ctx.read();
-        }
 
         @Override
         public void channelInactive(ChannelHandlerContext ctx) throws Exception {
