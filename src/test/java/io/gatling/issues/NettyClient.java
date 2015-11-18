@@ -42,7 +42,7 @@ public class NettyClient implements Closeable {
 
         InternalLoggerFactory.setDefaultFactory(new Slf4JLoggerFactory());
 
-        this.latch = new CountDownLatch(1);;
+        this.latch = new CountDownLatch(1);
         eventLoop = new NioEventLoopGroup();
         bootstrap = new Bootstrap().channel(NioSocketChannel.class).group(eventLoop);
 
@@ -90,7 +90,7 @@ public class NettyClient implements Closeable {
                 }
             }
         });
-        
+
         latch.await(10, TimeUnit.SECONDS);
         return success;
     }
